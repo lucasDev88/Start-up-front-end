@@ -15,7 +15,7 @@ export default function Header() {
                     <div className="shrink-0 flex items-center">
 
                         <span className="text-2xl font-bold text-blue-800">
-                            Start-Up
+                          FluxoPay
                         </span>
 
                     </div>
