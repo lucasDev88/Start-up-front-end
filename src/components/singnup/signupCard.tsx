@@ -1,14 +1,37 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
+import { signup } from "../../_services/auth";
+import { useAuth } from "../../_services/authContext";
 
 export function SignUpCard() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false) 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [_, setError] = useState("")
 
-  function handleSubmit(e: React.FormEvent) {
+  const navigate = useNavigate()
+  const { setLogged } = useAuth()
+
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    console.log({ name, email, password });
+    setLoading(true)
+    setError("")
+
+    try {
+      await signup({
+        name: name,
+        email: email,
+        password: password
+      })
+
+      setLogged(true)
+      navigate("/dashboard")
+    } catch (err) {
+      setError(`Erro ao criar conta: ${err}`)
+    }
   }
 
   return (
@@ -74,7 +97,7 @@ export function SignUpCard() {
             type="submit"
             className="w-full rounded-xl bg-blue-700 hover:bg-blue-800 text-white font-semibold py-3 shadow-lg shadow-blue-700/30 transition"
           >
-            Criar conta grátis
+            { loading ? "Criando..." : "Criar conta" }
           </button>
         </form>
 
@@ -85,7 +108,9 @@ export function SignUpCard() {
           <div className="h-px bg-slate-200 flex-1" />
         </div>
 
-        <button className="w-full rounded-xl border border-slate-300 py-3 font-medium hover:bg-slate-50 transition">
+        <button onClick={() => {
+          navigate("/login")
+        }} className="w-full rounded-xl border border-slate-300 py-3 font-medium hover:bg-slate-50 transition">
           Entrar na conta
         </button>
       </div>

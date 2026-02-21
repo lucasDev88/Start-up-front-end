@@ -1,7 +1,10 @@
 import { motion } from "framer-motion"
 import { ArrowRight, CheckCircle } from "lucide-react"
+import { useNavigate } from "react-router-dom";
 
 export function Hero() {
+  const navigate = useNavigate()
+
   return (
     <section id="hero" className="relative pt-32 pb-20 lg:pt-40 lg:pb-28 overflow-hidden bg-linear-to-b from-blue-50/50 to-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -19,7 +22,11 @@ export function Hero() {
             </p>
             
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
-              <button className="w-full sm:w-auto px-8 py-4 bg-blue-800 text-white rounded-xl font-bold text-lg hover:bg-blue-900 transition-all shadow-xl shadow-blue-600/30 flex items-center justify-center gap- cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2 focus:ring-offset-white focus:transform focus:scale-105">
+              <button className="w-full sm:w-auto px-8 py-4 bg-blue-800 text-white rounded-xl font-bold text-lg hover:bg-blue-900 transition-all shadow-xl shadow-blue-600/30 flex items-center justify-center gap- cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2 focus:ring-offset-white focus:transform focus:scale-105" onClick={
+                () => {
+                  navigate("/signup")
+                }
+              }>
                 Começar grátis
                 <ArrowRight size={20} />
               </button>

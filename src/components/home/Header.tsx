@@ -2,9 +2,12 @@ import { Menu, X } from "lucide-react";
 import "../../style/App.css"
 import { useState } from 'react';
 import { AnimatePresence, motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 export default function Header() {
     const [ isOpen, setIsOpen ] = useState(false);
+
+    const navigate = useNavigate()
 
     return (
         <nav className="fixed top-0 w-full z-50 bg-white/80">
@@ -37,7 +40,11 @@ export default function Header() {
                             Planos
                         </a>
 
-                        <button className="bg-blue-800 text-white px-5 py-2 rounded-full font-semibold hover:bg-bule-500 transition-colors shadow-lg shadow-blue-700/30 cursor-pointer">
+                        <button onClick={
+                          () => {
+                            navigate("/login")
+                          }
+                        } className="bg-blue-800 text-white px-5 py-2 rounded-full font-semibold hover:bg-bule-500 transition-colors shadow-lg shadow-blue-700/30 cursor-pointer">
                             Entrar
                         </button>
 

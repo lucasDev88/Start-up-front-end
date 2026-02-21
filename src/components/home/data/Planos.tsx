@@ -15,7 +15,7 @@ export const plans: Plan[] = [
   },
   {
     name: "Premium",
-    price: "R$49",
+    price: "R$29,99",
     desc: "Mais usado",
     highlight: true,
     button: "Assinar Premium",
@@ -28,7 +28,7 @@ export const plans: Plan[] = [
   },
   {
     name: "Premium+",
-    price: "R$99",
+    price: "R$39,99",
     desc: "Escala total",
     button: "Assinar Premium+",
     features: [

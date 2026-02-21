@@ -1,14 +1,39 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import "../../style/input.css"
+import { loginAuth } from "../../_services/auth"
+import { useAuth } from "../../_services/authContext"
+import { useNavigate } from "react-router-dom";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [_, setError] = useState("")
 
-  function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    console.log({ email, password });
+  const navigate = useNavigate()
+  const { setLogged } = useAuth()
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault()
+    setError("")
+    setLoading(true)
+
+    try {
+      await loginAuth({
+        email,
+        password
+      })
+
+      setLogged(true)
+      navigate("/dashboard")
+
+    } catch (err) {
+      setError(`Credenciais inválidas: ${err}`)
+    }
+
+    setLoading(false)
   }
 
   return (
@@ -72,7 +97,7 @@ export default function LoginPage() {
               type="submit"
               className="w-full rounded-xl bg-blue-700 hover:bg-blue-800 text-white font-semibold py-3 shadow-lg shadow-blue-700/30 transition"
             >
-              Entrar
+              { loading ? "Entrando" : "Entrar" }
             </button>
           </form>
 
@@ -84,7 +109,9 @@ export default function LoginPage() {
           </div>
 
           {/* Secondary action */}
-          <button className="w-full rounded-xl border border-slate-300 py-3 font-medium hover:bg-slate-50 transition">
+          <button onClick={() => {
+            navigate("/signup")
+          }} className="w-full rounded-xl border border-slate-300 py-3 font-medium hover:bg-slate-50 transition">
             Criar conta grátis
           </button>
         </div>
